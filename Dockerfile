@@ -40,4 +40,4 @@ COPY . /app/
 EXPOSE 8000
 
 # أمر التشغيل: تنفيذ الـ migrate أولاً لإنشاء قاعدة البيانات وجداولها تلقائياً ثم بدء السيرفر
-CMD ["sh", "-c", "python manage.py migrate && gunicorn --bind 0.0.0.0:8000 --workers 4 --worker-class gthread --threads 4 --timeout 600 pygoat.wsgi"]
+CMD ["sh", "-c", "python manage.py migrate && python manage.py loaddata initial_data || true && gunicorn --bind 0.0.0.0:8000 --workers 4 --worker-class gthread --threads 4 --timeout 600 pygoat.wsgi"]
